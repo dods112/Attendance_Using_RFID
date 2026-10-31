@@ -5,6 +5,7 @@ Run with: python -m streamlit run app.py
 """
 import base64
 import html
+import os
 import math
 from datetime import date, datetime, time, timedelta
 
@@ -30,6 +31,12 @@ from ui.terminal import show_terminal_input, render_terminal_log
 
 
 st.set_page_config(page_title=APP_TITLE, page_icon=APP_ICON, layout="wide", initial_sidebar_state="expanded")
+
+try:
+    _secret_demo = str(st.secrets.get("DEMO_MODE", ""))
+except Exception:
+    _secret_demo = ""
+DEMO_MODE = os.environ.get("DEMO_MODE") == "1" or _secret_demo == "1"
 
 init_db()
 
@@ -305,7 +312,19 @@ def live_panel(cls: dict):
     events = list(reader.events)
     latest = events[0] if events else None
 
-    if reader.connected:
+    if DEMO_MODE:
+        device = (
+            '<div class="tx-device">'
+            '<span class="tx-dot tx-dot-on"></span>'
+            '<div><div class="tx-device-title">Demo mode</div>'
+            '<div class="tx-device-sub">Live scanning runs on the classroom PC. Sample data shown.</div></div>'
+            '</div>'
+        )
+        scanner = (
+            '<div class="tx-scanner tx-scanner-off"><span></span><span></span>'
+            '<div class="tx-scanner-core"></div></div>'
+        )
+    elif reader.connected:
         device = (
             '<div class="tx-device">'
             '<span class="tx-dot tx-dot-on"></span>'
