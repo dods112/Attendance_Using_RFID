@@ -27,6 +27,7 @@ from services.attendance_service import get_roster, roster_csv
 from services.serial_service import SerialReader
 from ui.views import PAGES, render_page
 from ui.sidebar import show_sidebar
+from ui.demo import demo_controls
 from ui.terminal import show_terminal_input, render_terminal_log
 
 
@@ -574,6 +575,8 @@ def show_welcome(cls: dict):
         attendance_ring(cls["id"])
 
     stats_panel(cls["id"])
+
+    demo_controls(reader, cls, DEMO_MODE)
 
     live_col, feed_col = st.columns([1.2, 1])
     with live_col:

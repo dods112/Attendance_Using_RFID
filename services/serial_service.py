@@ -97,6 +97,10 @@ class SerialReader:
                 self._ser = None
                 self.connected = False
 
+    def simulate_scan(self, uid: str) -> None:
+        """Run a card tap without the Arduino. Same path as a real scan."""
+        self._handle(uid)
+
     def send_lcd(self, line1: str, line2: str) -> None:
         """Send a message to the Arduino. It shows on the LCD and sounds the buzzer."""
         ser = self._ser
