@@ -1,0 +1,9 @@
+﻿venv/
+.venv/
+__pycache__/
+*.pyc
+database/*.db
+assets/students/
+.streamlit/secrets.toml
+patch_*.py
+remove_*.py
