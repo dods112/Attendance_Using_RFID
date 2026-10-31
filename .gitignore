@@ -7,3 +7,4 @@ assets/students/
 .streamlit/secrets.toml
 patch_*.py
 remove_*.py
+database/heisenberg_students.csv
